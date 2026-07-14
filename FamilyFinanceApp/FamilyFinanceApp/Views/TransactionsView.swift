@@ -5,6 +5,7 @@ struct TransactionsView: View {
     @State private var searchText = ""
     @State private var editingTransaction: FinanceTransaction?
 
+    // Sorts newest first, then applies the Searchable text filter.
     private var filteredTransactions: [FinanceTransaction] {
         let sortedTransactions = store.transactions.sorted { $0.date > $1.date }
 
@@ -24,6 +25,7 @@ struct TransactionsView: View {
             List {
                 ForEach(filteredTransactions) { transaction in
                     TransactionRowView(transaction: transaction)
+                        // Swipe actions provide quick edit and delete commands.
                         .swipeActions(edge: .trailing) {
                             Button(role: .destructive) {
                                 store.delete(transaction)
@@ -38,6 +40,7 @@ struct TransactionsView: View {
                             }
                             .tint(.blue)
                         }
+                        // Context menu appears when the user long-presses a transaction.
                         .contextMenu {
                             Button {
                                 editingTransaction = transaction
@@ -73,6 +76,7 @@ struct TransactionsView: View {
                     )
                 }
             }
+            // Reuses the same form as AddTransactionView, but pre-fills it for editing.
             .sheet(item: $editingTransaction) { transaction in
                 NavigationStack {
                     TransactionFormView(transaction: transaction) { updatedTransaction in

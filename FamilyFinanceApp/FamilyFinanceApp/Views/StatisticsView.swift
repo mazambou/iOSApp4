@@ -19,6 +19,7 @@ struct StatisticsView: View {
                         )
                         .frame(maxWidth: .infinity, minHeight: 280)
                     } else {
+                        // Charts turns the category totals from FinanceStore into a bar graph.
                         Chart(store.expensesByCategory, id: \.category) { item in
                             BarMark(
                                 x: .value("Category", item.category.rawValue),
@@ -30,6 +31,7 @@ struct StatisticsView: View {
                         .frame(height: 280)
                     }
 
+                    // The list below the chart keeps exact dollar values easy to read.
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Category Totals")
                             .font(.headline)

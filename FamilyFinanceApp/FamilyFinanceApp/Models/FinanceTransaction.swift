@@ -1,5 +1,6 @@
 import Foundation
 
+// Represents one income or expense item in the family budget.
 struct FinanceTransaction: Identifiable, Hashable {
     let id: UUID
     var name: String
@@ -25,6 +26,7 @@ struct FinanceTransaction: Identifiable, Hashable {
     }
 }
 
+// Used by the app to separate money coming in from money going out.
 enum TransactionType: String, CaseIterable, Identifiable {
     case income = "Income"
     case expense = "Expense"
@@ -32,6 +34,7 @@ enum TransactionType: String, CaseIterable, Identifiable {
     var id: String { rawValue }
 }
 
+// Categories used for forms, searching, and the statistics chart.
 enum TransactionCategory: String, CaseIterable, Identifiable {
     case groceries = "Groceries"
     case rent = "Rent"

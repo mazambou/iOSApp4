@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct MainTabView: View {
+    // One shared store keeps every tab synchronized.
     @State private var store = FinanceStore()
 
     var body: some View {

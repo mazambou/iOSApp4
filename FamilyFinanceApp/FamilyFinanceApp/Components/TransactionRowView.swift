@@ -1,5 +1,6 @@
 import SwiftUI
 
+// Displays a compact row for the transactions list.
 struct TransactionRowView: View {
     let transaction: FinanceTransaction
 

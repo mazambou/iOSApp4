@@ -6,6 +6,7 @@ struct AddTransactionView: View {
 
     var body: some View {
         NavigationStack {
+            // The form returns a completed FinanceTransaction through the onSave closure.
             TransactionFormView { transaction in
                 store.add(transaction)
                 didSave = true

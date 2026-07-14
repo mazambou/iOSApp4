@@ -1,5 +1,6 @@
 import SwiftUI
 
+// Reusable form used for both adding and editing transactions.
 struct TransactionFormView: View {
     private let transaction: FinanceTransaction?
     private let onSave: (FinanceTransaction) -> Void
@@ -13,6 +14,8 @@ struct TransactionFormView: View {
     init(transaction: FinanceTransaction? = nil, onSave: @escaping (FinanceTransaction) -> Void) {
         self.transaction = transaction
         self.onSave = onSave
+
+        // The form starts empty for new transactions and pre-filled for edits.
         _name = State(initialValue: transaction?.name ?? "")
         _amountText = State(initialValue: transaction.map { String(format: "%.2f", $0.amount) } ?? "")
         _category = State(initialValue: transaction?.category ?? .groceries)
@@ -52,6 +55,7 @@ struct TransactionFormView: View {
                     }
                 }
 
+                // DatePicker is one of the required SwiftUI Cookbook features.
                 DatePicker("Date", selection: $date, displayedComponents: .date)
             }
 
@@ -78,6 +82,7 @@ struct TransactionFormView: View {
 
         onSave(savedTransaction)
 
+        // Clear the form after adding, but keep edited values when used inside the edit sheet.
         if transaction == nil {
             name = ""
             amountText = ""

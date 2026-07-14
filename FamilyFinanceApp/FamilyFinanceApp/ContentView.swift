@@ -1,14 +1,8 @@
-//
-//  ContentView.swift
-//  FamilyFinanceApp
-//
-//  Created by AZAMBOU Marcel on 2026-07-13.
-//
-
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
+        // ContentView stays small and delegates the main navigation to MainTabView.
         MainTabView()
     }
 }

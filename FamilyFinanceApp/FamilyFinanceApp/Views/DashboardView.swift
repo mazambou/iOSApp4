@@ -15,6 +15,7 @@ struct DashboardView: View {
                             .foregroundStyle(.secondary)
                     }
 
+                    // ProgressView shows how much of the monthly budget has been spent.
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
                             Text("Budget Used")
@@ -34,6 +35,7 @@ struct DashboardView: View {
                     .padding()
                     .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 8))
 
+                    // Summary cards give quick access to the main financial totals.
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                         SummaryCard(title: "Income", value: store.monthlyIncome, color: .green, icon: "arrow.down.circle.fill")
                         SummaryCard(title: "Expenses", value: store.monthlyExpenses, color: .red, icon: "arrow.up.circle.fill")
@@ -41,6 +43,7 @@ struct DashboardView: View {
                         SummaryCard(title: "Transactions", value: Double(store.transactions.count), color: .purple, icon: "list.bullet", isCurrency: false)
                     }
 
+                    // The budget can be adjusted without leaving the Home screen.
                     Stepper(
                         "Monthly Budget: \(store.monthlyBudget, format: .currency(code: "CAD"))",
                         value: $store.monthlyBudget,
@@ -57,6 +60,7 @@ struct DashboardView: View {
     }
 }
 
+// Small reusable card for the Home screen totals.
 private struct SummaryCard: View {
     let title: String
     let value: Double
