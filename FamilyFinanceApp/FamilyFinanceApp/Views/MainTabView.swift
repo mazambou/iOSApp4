@@ -3,6 +3,11 @@ import SwiftUI
 struct MainTabView: View {
     // One shared store keeps every tab synchronized.
     @State private var store = FinanceStore()
+    @AppStorage("appTheme") private var selectedTheme = AppTheme.system.rawValue
+
+    private var preferredColorScheme: ColorScheme? {
+        AppTheme(rawValue: selectedTheme)?.colorScheme
+    }
 
     var body: some View {
         TabView {
@@ -25,7 +30,13 @@ struct MainTabView: View {
                 .tabItem {
                     Label("Stats", systemImage: "chart.bar.fill")
                 }
+
+            SettingsView()
+                .tabItem {
+                    Label("Settings", systemImage: "gearshape.fill")
+                }
         }
+        .preferredColorScheme(preferredColorScheme)
     }
 }
 

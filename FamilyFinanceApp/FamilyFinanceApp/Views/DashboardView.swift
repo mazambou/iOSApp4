@@ -2,6 +2,11 @@ import SwiftUI
 
 struct DashboardView: View {
     @Bindable var store: FinanceStore
+    @State private var isRecentTransactionsExpanded = true
+
+    private var recentTransactions: [FinanceTransaction] {
+        Array(store.transactions.sorted { $0.date > $1.date }.prefix(3))
+    }
 
     var body: some View {
         NavigationStack {
@@ -35,6 +40,22 @@ struct DashboardView: View {
                     .padding()
                     .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 8))
 
+                    // Gauge gives a second visual summary of budget health.
+                    Gauge(value: store.budgetUsedRatio, in: 0...1) {
+                        Text("Budget Health")
+                    } currentValueLabel: {
+                        Text(store.remainingBudget >= 0 ? "On Track" : "Over Budget")
+                    } minimumValueLabel: {
+                        Text("0%")
+                    } maximumValueLabel: {
+                        Text("100%")
+                    }
+                    .gaugeStyle(.accessoryCircularCapacity)
+                    .tint(store.remainingBudget >= 0 ? .green : .red)
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 8))
+
                     // Summary cards give quick access to the main financial totals.
                     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                         SummaryCard(title: "Income", value: store.monthlyIncome, color: .green, icon: "arrow.down.circle.fill")
@@ -42,6 +63,23 @@ struct DashboardView: View {
                         SummaryCard(title: "Remaining", value: store.remainingBudget, color: store.remainingBudget >= 0 ? .blue : .red, icon: "wallet.pass.fill")
                         SummaryCard(title: "Transactions", value: Double(store.transactions.count), color: .purple, icon: "list.bullet", isCurrency: false)
                     }
+
+                    // DisclosureGroup lets the user expand or collapse recent activity.
+                    DisclosureGroup("Recent Transactions", isExpanded: $isRecentTransactionsExpanded) {
+                        VStack(spacing: 8) {
+                            ForEach(recentTransactions) { transaction in
+                                TransactionRowView(transaction: transaction)
+
+                                if transaction.id != recentTransactions.last?.id {
+                                    Divider()
+                                }
+                            }
+                        }
+                        .padding(.top, 8)
+                    }
+                    .font(.headline)
+                    .padding()
+                    .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 8))
 
                     // The budget can be adjusted without leaving the Home screen.
                     Stepper(

@@ -1,9 +1,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("isLoggedIn") private var isLoggedIn = false
+
     var body: some View {
-        // ContentView stays small and delegates the main navigation to MainTabView.
-        MainTabView()
+        Group {
+            if isLoggedIn {
+                MainTabView()
+            } else {
+                LoginView(isLoggedIn: $isLoggedIn)
+            }
+        }
+        .animation(.easeInOut, value: isLoggedIn)
     }
 }
 
