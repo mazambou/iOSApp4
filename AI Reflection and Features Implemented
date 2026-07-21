@@ -1,0 +1,34 @@
+# AI Reflection
+
+## 1. How Did You Use AI in This Assignment?
+
+I used AI as a learning and support tool throughout this assignment. 
+It helped me better understand the project requirements, organize my development process, and plan the implementation of the different features. 
+AI also assisted me in identifying and fixing coding errors, explaining SwiftUI concepts, exploring alternative solutions, and improving the overall quality and structure of my code. 
+While AI provided guidance and suggestions, I was responsible for implementing, testing, and integrating all of the features into my application.
+
+## 2. What Did AI Help You Learn?
+
+AI helped me better understand several SwiftUI concepts, including building a login screen, using `SecureField`, implementing password visibility toggles, validating user input, and storing data with `@AppStorage`. 
+It also helped me learn best practices for creating a more user-friendly and maintainable application.
+
+## 3. What Did You Do Yourself?
+
+I designed and implemented all the required features, integrated them into the existing application, tested their functionality, fixed bugs, and ensured that the final project met the assignment requirements. 
+I also documented the additional features in the README and prepared the project for submission.
+
+---
+
+# Additional Features Implemented
+
+The following additional features were implemented in the application:
+
+- Login screen before accessing the app.
+- Email input field.
+- Secure password input field.
+- Show/Hide password toggle.
+- Remember Email option.
+- Use Demo Account button.
+- Basic email and password validation.
+- Persistent login state using `@AppStorage`.
+- Sign Out button in the Settings screen.
